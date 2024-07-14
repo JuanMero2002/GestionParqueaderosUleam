@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Inicio de Sesión</title> 
+    <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="nuevosestilos.css"
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+    <link rel="stylesheet" href="estilos.css">
+</head>  
+<body>
+    <header> 
+        <div class="logo">
+            <img src="img/UleamLogo.png" alt="logo de la compañia">
+            <h2 class="nombre/empresa"> CONTROL DE PARQUEADEROS </h2>
+            
+        </div>
+        <nav>
+            <a href="" class="nav=link"></a>
+            <a href="" class="nav=link">Inicio</a>
+            <a href="" class="nav=link">Sobre Nosotros</a>
+            <a href="" class="nav=link">Contacto </a>
+        </nav>
+    </header>
+    <form class="formulario" onsubmit="return validarRegistro(event)">
+        <h1>Crea un Perfil</h1>
+        <div class="contenedor">
+            <div class="input-contenedor">
+                <i class="fas fa-user icon"></i>
+                <input type="text" id="nombre" placeholder="Nombre Completo">
+            </div>
+            <div class="input-contenedor">
+                <i class="fas fa-envelope icon"></i>
+                <input type="text" id="correo" placeholder="Correo Electrónico">
+            </div>
+            <div class="input-contenedor">
+                <i class="fas fa-key icon"></i>
+                <input type="password" id="contrasena" placeholder="Contraseña">
+            </div>
+            <input type="submit" value="Regístrate" class="button">
+            <p id="mensaje"></p>
+            <p>Al registrarte, aceptas nuestras Condiciones de uso y Política de privacidad.</p>
+            <p>¿Ya tienes una cuenta? <a class="link" href="index.html">Iniciar Sesión</a></p>
+            <button type="button" onclick="borrarLocalStorage()" class="button">Borrar Datos</button>
+        </div>
+    </form>
+
+    <script src="js/registrarvista.js"></script>
+    <script src="json/Registrarvista.js"></script>
+</body>
+</html>

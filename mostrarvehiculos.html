@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ver Vehículos Registrados</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="nuevosestilos.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+    <link rel="stylesheet" href="estilos.css">
+    <style>
+        /* Estilo para el contenedor principal */
+        .contenedor-principal {
+            background-color: #f0f0f0; /* Color de fondo deseado */
+            padding: 30px; /* Espaciado interior */
+            text-align: center; /* Centrado del contenido */
+            max-width: 600px; /* Ancho máximo del contenedor */
+            margin: 50px auto; /* Centrado horizontal y margen superior */
+            border-radius: 10px; /* Borde redondeado */
+            box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Sombra suave */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="img/UleamLogo.png" alt="logo de la compañia">
+            <h2 class="nombre-empresa">GESTION DE PARQUEADEROS</h2>
+        </div>
+        <nav>
+            <a href="#" class="nav-link">Inicio</a>
+            <a href="#" class="nav-link">Sobre Nosotros</a>
+            <a href="#" class="nav-link">Contacto</a>
+        </nav>
+    </header>
+
+    <!-- Contenedor principal con color -->
+    <div class="contenedor-principal">
+        <h1>Vehículos Registrados</h1>
+        <ul id="listaVehiculos"></ul>
+        <button onclick="borrarLocalStorage()" class="button">Borrar Todos los Vehículos Registrados</button>
+        <p>Volver a Opciones de Administrador <a class="link" href="opcionesadmin.html">Aquí</a></p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var vehiculos = JSON.parse(localStorage.getItem("vehiculos")) || [];
+            var listaVehiculos = document.getElementById("listaVehiculos");
+
+            vehiculos.forEach(function(vehiculo, index) {
+                var listItem = document.createElement("li");
+                listItem.textContent = `Vehículo ${index + 1}: Placa ${vehiculo.placa}, Marca ${vehiculo.marca}, Modelo ${vehiculo.modelo}, Año ${vehiculo.ano}, Color ${vehiculo.color}`;
+                listaVehiculos.appendChild(listItem);
+            });
+        });
+
+        function borrarLocalStorage() {
+            if (confirm("¿Estás seguro de borrar todos los datos de vehículos registrados?")) {
+                localStorage.removeItem("vehiculos");
+                alert("Los datos han sido eliminados correctamente.");
+                location.reload(); // Recargar la página para reflejar los cambios
+            }
+        }
+    </script>
+</body>
+</html>

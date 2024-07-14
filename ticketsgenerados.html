@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ver Tickets</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="nuevosestilos.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+    <link rel="stylesheet" href="estilos.css">
+    <style>
+        /* Estilo para el contenedor principal */
+        .contenedor-principal {
+            background-color: #f0f0f0; /* Color de fondo deseado */
+            padding: 30px; /* Espaciado interior */
+            text-align: center; /* Centrado del contenido */
+            max-width: 600px; /* Ancho máximo del contenedor */
+            margin: 50px auto; /* Centrado horizontal y margen superior */
+            border-radius: 10px; /* Borde redondeado */
+            box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Sombra suave */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="img/UleamLogo.png" alt="logo de la compañia">
+            <h2 class="nombre-empresa">GESTION DE PARQUEADEROS</h2>
+        </div>
+        <nav>
+            <a href="#" class="nav-link">Inicio</a>
+            <a href="#" class="nav-link">Sobre Nosotros</a>
+            <a href="#" class="nav-link">Contacto</a>
+        </nav>
+    </header>
+
+    <!-- Contenedor principal con color -->
+    <div class="contenedor-principal">
+        <h1>Tickets Generados</h1>
+        <ul id="listaTickets"></ul>
+        <button onclick="imprimirTodosLosTickets()" class="button">Imprimir Todos los Tickets</button>
+        <p>Volver a Opciones de Administrador <a class="link" href="opcionesadmin.html">Aquí</a></p>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var tickets = JSON.parse(localStorage.getItem("tickets")) || [];
+            var listaTickets = document.getElementById("listaTickets");
+
+            tickets.forEach(function(ticket) {
+                var listItem = document.createElement("li");
+                listItem.textContent = `Día: ${ticket.dia}, Hora de Entrada: ${ticket.horaEntrada}, Hora de Salida: ${ticket.horaSalida}, Espacio: ${ticket.espacio}`;
+                listaTickets.appendChild(listItem);
+            });
+        });
+
+        function imprimirTodosLosTickets() {
+            var { jsPDF } = window.jspdf;
+            var doc = new jsPDF();
+
+            var tickets = JSON.parse(localStorage.getItem("tickets")) || [];
+            var y = 10;
+
+            tickets.forEach(function(ticket, index) {
+                var textoTicket = `Ticket ${index + 1}:\nDía: ${ticket.dia}\nHora de Entrada: ${ticket.horaEntrada}\nHora de Salida: ${ticket.horaSalida}\nEspacio: ${ticket.espacio}\n\n`;
+                doc.text(textoTicket, 10, y);
+                y += 30; // Incrementar el valor de 'y' para que no se superpongan los tickets
+                if (y > 280) { // Si la posición 'y' supera el tamaño de la página, crear una nueva página
+                    doc.addPage();
+                    y = 10;
+                }
+            });
+
+            doc.save('todos_tickets.pdf');
+        }
+
+        function generarTicket(event) {
+            event.preventDefault(); // Prevenir el envío del formulario
+
+            // Obtener los valores seleccionados por el usuario
+            var dia = document.getElementById("dia").value;
+            var horaEntrada = document.getElementById("horaEntrada").value;
+            var horaSalida = document.getElementById("horaSalida").value;
+            var espacio = document.getElementById("espacio").value;
+
+            // Validar que los campos no estén vacíos
+            if (!dia || !horaEntrada || !horaSalida || !espacio) {
+                alert("Por favor complete todos los campos.");
+                return;
+            }
+
+            // Validar que la hora de salida sea mayor que la hora de entrada
+            if (horaSalida <= horaEntrada) {
+                alert("La hora de salida debe ser mayor que la hora de entrada.");
+                return;
+            }
+
+            // Crear el ticket
+            var ticket = {
+                dia: dia,
+                horaEntrada: horaEntrada,
+                horaSalida: horaSalida,
+                espacio: espacio
+            };
+
+            // Mostrar el ticket en el párrafo con id "ticket"
+            document.getElementById("ticket").innerText = `Ticket generado:\nDía: ${dia}\nHora de Entrada: ${horaEntrada}\nHora de Salida: ${horaSalida}\nEspacio: ${espacio}`;
+
+            // Guardar el ticket en el local storage
+            var tickets = JSON.parse(localStorage.getItem("tickets")) || [];
+            tickets.push(ticket);
+            localStorage.setItem("tickets", JSON.stringify(tickets));
+
+            // Llamar a la función para imprimir el ticket generado
+            imprimirTicket(dia, horaEntrada, horaSalida, espacio);
+        }
+
+        function imprimirTicket(dia, horaEntrada, horaSalida, espacio) {
+            var { jsPDF } = window.jspdf;
+            var doc = new jsPDF();
+
+            // Crear el contenido del ticket
+            var ticket = "Ticket generado:\n\n" +
+                         "Día: " + dia + "\n" +
+                         "Hora de Entrada: " + horaEntrada + "\n" +
+                         "Hora de Salida: " + horaSalida + "\n" +
+                         "Espacio: " + espacio;
+
+            // Agregar el contenido al PDF
+            doc.text(ticket, 10, 10);
+
+            // Descargar el PDF
+            doc.save('ticket.pdf');
+        }
+    </script>
+    
+</body>
+</html>

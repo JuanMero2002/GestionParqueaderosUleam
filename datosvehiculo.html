@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Inicio de Sesión</title> 
+    <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="nuevosestilos.css"
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+    <link rel="stylesheet" href="estilos.css">
+</head>  
+<body>
+    <header> 
+        <div class="logo">
+            <img src="img/UleamLogo.png" alt="logo de la compañia">
+            <h2 class="nombre/empresa"> CONTROL DE PARQUEADEROS </h2>
+            
+        </div>
+        <nav>
+            <a href="" class="nav=link"></a>
+            <a href="" class="nav=link">Inicio</a>
+            <a href="" class="nav=link">Sobre Nosotros</a>
+            <a href="" class="nav=link">Contacto </a>
+        </nav>
+    </header>
+    <form class="formulario" onsubmit="return validarRegistro(event)" action="finregistro.html">
+        <h1>Registro de Vehículo</h1>
+        <div class="contenedor">
+            <div class="input-contenedor">
+                <i class="fas fa-window-close icon"></i>
+                <input type="text" id="placa" placeholder="Número de Placa">
+            </div>
+            <div class="input-contenedor">
+                <i class="fas fa-car icon"></i>
+                <input type="text" id="marca" placeholder="Marca de Vehículo">
+            </div>
+            <div class="input-contenedor">
+                <i class="fas fa-font icon"></i>
+                <input type="text" id="modelo" placeholder="Modelo de vehículo">
+            </div>
+            <div class="input-contenedor">
+                <i class="fas fa-calendar icon"></i>
+                <input type="text" id="ano" placeholder="Año del Vehiculo">
+            </div>
+            <div class="input-contenedor">
+                <i class="fas fa-adjust icon"></i>
+                <input type="text" id="color" placeholder="Color del vehículo">
+            </div>
+
+            <input type="submit" value="Registrar Vehiculo" class="button">
+            <p id="mensaje"></p>
+
+            <p>Verifica que los datos estén correctamente ingresados. Caso contrario más adelante no podrás modificarlos</p>
+            <p>¿Quieres Volver a la opciones de usuario? <a class="link" href="opcionesusuario.html">Atrás</a></p>
+        </div>
+    </form>
+
+    <script src="js/datosvehiculo.js"></script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Usuarios Registrados</title>
+    <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="nuevosestilos.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+    <link rel="stylesheet" href="estilos.css">
+    <style>
+        .contenedor-principal {
+            background-color: #f0f0f0; /* Color de fondo del contenedor */
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 800px; /* Ancho máximo del contenedor */
+            border-radius: 10px; /* Borde redondeado */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra */
+        }
+        
+        .tablaUsuarios {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px; /* Espacio entre tablas */
+        }
+        
+        .tablaUsuarios caption {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .tablaUsuarios th, .tablaUsuarios td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ccc;
+            vertical-align: middle; /* Centrar verticalmente */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="img/UleamLogo.png" alt="logo de la compañia">
+            <h2 class="nombre/empresa"> CONTROL DE PARQUEADEROS </h2>
+        </div>
+        <nav>
+            <a href="" class="nav-link">Inicio</a>
+            <a href="" class="nav-link">Sobre Nosotros</a>
+            <a href="" class="nav-link">Contacto</a>
+        </nav>
+    </header>
+    <div class="contenedor-principal">
+        <h1>Datos de Usuarios Registrados</h1>
+        <div id="contenedorTablas" class="contenedor">
+            <!-- Aquí se agregarán dinámicamente las tablas -->
+        </div>
+        <button type="button" onclick="borrarLocalStorageUsuarios()" class="button">Borrar Datos Guardados</button>
+
+        <p>Volver a Opciones de Administrador <a class="link" href="opcionesadmin.html">Aquí</a></p>
+
+    </div>
+    <script src="js/datosusuario.js"></script>
+
+    <script src="js/mostrarusuarios.js"></script>
+</body>
+</html>

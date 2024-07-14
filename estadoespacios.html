@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Estado de Espacios</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="nuevosestilos.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+    <link rel="stylesheet" href="estilos.css">
+    <style>
+        /* Estilo para el contenedor principal */
+        .contenedor-principal {
+            background-color: #f0f0f0; /* Color de fondo deseado */
+            padding: 30px; /* Espaciado interior */
+            text-align: center; /* Centrado del contenido */
+            max-width: 600px; /* Ancho máximo del contenedor */
+            margin: 50px auto; /* Centrado horizontal y margen superior */
+            border-radius: 10px; /* Borde redondeado */
+            box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Sombra suave */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="img/UleamLogo.png" alt="logo de la compañia">
+            <h2 class="nombre-empresa">GESTION DE PARQUEADEROS</h2>
+        </div>
+        <nav>
+            <a href="#" class="nav-link">Inicio</a>
+            <a href="#" class="nav-link">Sobre Nosotros</a>
+            <a href="#" class="nav-link">Contacto</a>
+        </nav>
+    </header>
+
+    <!-- Contenedor principal con color -->
+    <div class="contenedor-principal">
+        <h1>Estado de Espacios</h1>
+        <h2>Ocupados:</h2>
+        <ul id="espaciosOcupados"></ul>
+        <h2>Disponibles:</h2>
+        <ul id="espaciosDisponibles"></ul>
+        <button onclick="liberarEspacios()" class="button">Liberar Espacios Ocupados</button>
+        <p>Volver a Opciones de Administrador <a class="link" href="opcionesadmin.html">Aquí</a></p>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var tickets = JSON.parse(localStorage.getItem("tickets")) || [];
+            var espaciosOcupados = tickets.map(ticket => ticket.espacio);
+            var espaciosDisponibles = [];
+
+            for (let i = 1; i <= 50; i++) {
+                if (!espaciosOcupados.includes(i.toString())) {
+                    espaciosDisponibles.push(i);
+                }
+            }
+
+            var listaEspaciosOcupados = document.getElementById("espaciosOcupados");
+            var listaEspaciosDisponibles = document.getElementById("espaciosDisponibles");
+
+            espaciosOcupados.forEach(function(espacio) {
+                var listItem = document.createElement("li");
+                listItem.textContent = `Espacio ${espacio}`;
+                listaEspaciosOcupados.appendChild(listItem);
+            });
+
+            espaciosDisponibles.forEach(function(espacio) {
+                var listItem = document.createElement("li");
+                listItem.textContent = `Espacio ${espacio}`;
+                listaEspaciosDisponibles.appendChild(listItem);
+            });
+        });
+
+        function liberarEspacios() {
+            localStorage.removeItem("tickets");
+            location.reload();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Generar Ticket</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="nuevosestilos.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+    <link rel="stylesheet" href="estilos.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="img/UleamLogo.png" alt="logo de la compañia">
+            <h2 class="nombre-empresa">GESTION DE PARQUEADEROS</h2>
+        </div>
+        <nav>
+            <a href="#" class="nav-link">Inicio</a>
+            <a href="#" class="nav-link">Sobre Nosotros</a>
+            <a href="#" class="nav-link">Contacto</a>
+        </nav>
+    </header>
+    <form class="formulario" onsubmit="return generarTicket(event)">
+        <h1>Generar Ticket</h1>
+        <div class="contenedor">
+            <div class="input-contenedor">
+                <i class="fas fa-calendar icon"></i>
+                <input type="date" id="dia" required>
+            </div>
+            <div class="input-contenedor">
+                <i class="fas fa-clock icon"></i>
+                <input type="time" id="horaEntrada" required>
+            </div>
+            <div class="input-contenedor">
+                <i class="fas fa-clock icon"></i>
+                <input type="time" id="horaSalida" required>
+            </div>
+            <div class="input-contenedor">
+                <i class="fas fa-parking icon"></i>
+                <select id="espacio" required>
+                    <option value="" disabled selected>Selecciona un Espacio</option>
+                    <!-- Opciones del 1 al 50 -->
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            var tickets = JSON.parse(localStorage.getItem("tickets")) || [];
+                            var espaciosOcupados = tickets.map(ticket => ticket.espacio);
+                            var selectEspacio = document.getElementById("espacio");
+                
+                            for (let i = 1; i <= 50; i++) {
+                                if (!espaciosOcupados.includes(i.toString())) {
+                                    selectEspacio.innerHTML += `<option value="${i}">Espacio ${i}</option>`;
+                                }
+                            }
+                        });
+                    </script>
+                </select>
+                
+            </div>
+            <button type="submit" class="button">Generar Ticket</button>
+            <p> </p>
+            <button type="button" class="button" onclick="imprimirTicket()">Descargar Ticket en PDF</button>
+            <p id="ticket" style="color:green; margin-top:20px;"></p>
+            <p>¿Quieres volver a las opciones de usuario? <a class="link" href="opcionesusuario.html">Atrás</a></p>
+
+        </div>
+    </form>
+
+    <script src="js/generarticket.js"></script>
+</body>
+</html>
